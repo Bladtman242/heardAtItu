@@ -30,7 +30,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
                 font-family: 'Open Sans';
                 text-align: left;
                 display: inline-block;
-                width: 785px;
+                width: 485px;
             }
             header {
                 margin-top: 20px;
@@ -42,9 +42,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
                 color: rgb(35,71,170);
                 font-size: 8em;
                 text-transform: uppercase;
+                //width: 785px;
             }
             #content {
-                text-align: center;
+                text-align: left;
             }
             #tweet-form {
                 width: 400px;
@@ -97,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
     </head>
     <body>
         <header>
-            <h1>Heard at ITU</h1>
+            <h1>Heard</h1></br> <h1>at ITU</h1>
         </header>
         <div id="content">
             <?php
@@ -112,13 +113,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
             <form id="tweet-form" method="post">
                 <textarea id="tweet-text" placeholder="Lorem ipsum..." name="tweet-content"></textarea><br>
                 <span id="characters-left">140</span>
-                <button class="btn btn-primary" id="tweet-submit">Submit for consideration</button>
+                <button class="btn btn-primary" id="tweet-submit">Submit</button>
             </form>
             <p>
                 Submit a tweet of something funny you heard, saw or otherwise experienced (we don't judge) at the IT-University of Copenhagen. The tweets will be posted to the Twitter account <a href="http://twitter.com/HeardAtItu" target="_blank">@HeardAtItu</a> - follow it for fun quotes from the university.
             </p>
             <p>
-                When you have submitted a tweet to the system it must first be approved by a moderator before being posted to the Twitter account - please be patient!
+                When you have submitted a tweet, it will await the approval of a moderator before being posted on Twitter.
             </p>
         </div>
     </body>
