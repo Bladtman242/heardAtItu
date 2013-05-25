@@ -115,13 +115,12 @@ class Tweet {
     public function send() {
         switch($this->state) {
             case(Tweet::$STATE_APPROVED):
-                //TODO: Send to twitter!
                 $t = new TwitterOAuth(Tweet::$consumerKey, Tweet::$consumerSecret, Tweet::$OAuthToken, Tweet::$OAuthSecret); 
                 
                 $t->post('statuses/update',
                     array('status' => "$this->content"));
                  
-                //$this->state = Tweet::$STATE_SENT;
+                $this->state = Tweet::$STATE_SENT;
                 return $this->saveState();
                 break;
             default:
