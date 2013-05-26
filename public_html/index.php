@@ -20,6 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
 <html>
     <head>
         <meta charset="utf-8">
+        <title>Heard at ITU</title>
         <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,400italic,700,700italic' rel='stylesheet' type='text/css'>
         <style type="text/css">
@@ -39,6 +40,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
                 font-family: 'Open Sans';
                 font-weight: 800;
                 color: rgb(35,71,170);
+                line-height: 80%;
                 font-size: 8em;
                 text-transform: uppercase;
             }
@@ -96,7 +98,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
     </head>
     <body>
         <header>
-            <h1>Heard</h1></br> <h1>at ITU</h1>
+            <h1>Heard at ITU</h1>
         </header>
         <div id="content">
             <?php

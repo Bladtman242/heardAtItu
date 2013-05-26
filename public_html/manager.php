@@ -5,8 +5,36 @@ require_once "../backend/Tweet.php";
 <html>
     <head>
         <meta charset="utf-8">
+        <title>Manager | Heard at ITU</title>
+        <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,400italic,700,700italic' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            html {
+                text-align: center;
+            }
+            body {
+                font-family: 'Open Sans';
+                display: inline-block;
+                width: 415px;
+            }
+            header {
+                margin-top: 20px;
+                margin-bottom: 60px;
+            }
+            header h1 {
+                font-family: 'Open Sans';
+                font-weight: 800;
+                color: rgb(35,71,170);
+                line-height: 80%;
+                font-size: 8em;
+                text-transform: uppercase;
+            }
+        </style>
     </head>
     <body>
+        <header>
+            <h1>mngr</h1>
+        </header>
         <?php
             $authorized = false;
             $pwd = trim(file_get_contents("../twitter-pwd"));
