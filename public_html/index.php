@@ -21,80 +21,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
     <head>
         <meta charset="utf-8">
         <title>Heard at ITU</title>
-        <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
+        <link href="/vendor/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,400italic,700,700italic' rel='stylesheet' type='text/css'>
-        <style type="text/css">
-            html {
-                text-align: center;
-            }
-            body {
-                font-family: 'Open Sans';
-                display: inline-block;
-                width: 415px;
-            }
-            header {
-                margin-top: 20px;
-                margin-bottom: 60px;
-            }
-            header h1 {
-                font-family: 'Open Sans';
-                font-weight: 800;
-                color: rgb(35,71,170);
-                line-height: 80%;
-                font-size: 8em;
-                text-transform: uppercase;
-            }
-            #content {
-                text-align: left;
-            }
-            #tweet-form {
-                width: 400px;
-                display: inline-block;
-                text-align: right;
-            }
-            #tweet-text {
-                resize: none;
-                width: 100%;
-                height: 100px;
-            }
-            #tweet-submit {
-                margin-right: -14px;
-            }
-            #characters-left {
-                margin-right: 15px;
-                color: #888;
-            }
-            p {
-                text-align: left;
-            }
-        </style>
+        <link href="/res/style.css" rel="stylesheet" type="text/css">
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
-        <script>
-            $(document).ready(function() {
-                var $tweetText = $("#tweet-text");
-                var $charsLeft = $("#characters-left");
-                var $tweetSubmit = $("#tweet-submit");
-                var charFaultColor = "rgb(200,0,0)";
-                var charNormalColor = $charsLeft.css("color");
-
-                var updateCharsLeft = function() {
-                    var chLeft = 140 - $tweetText.val().length;
-                    $charsLeft.text(chLeft);
-
-                    if(chLeft < 0) {
-                        $charsLeft.css("color",charFaultColor);
-                        $tweetSubmit.attr("disabled","disabled");
-                    }
-                    else {
-                        $charsLeft.css("color",charNormalColor);
-                        $tweetSubmit.attr("disabled",false);
-                    }
-                };
-
-                $tweetText.keypress(updateCharsLeft);
-                $tweetText.keyup(updateCharsLeft);
-            });
-        </script>
+        <script src="/res/tweet.js"></script>
     </head>
     <body>
         <header>

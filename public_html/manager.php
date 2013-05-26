@@ -8,28 +8,7 @@ require_once "../backend/Tweet.php";
         <title>Manager | Heard at ITU</title>
         <link href="bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,400italic,700,700italic' rel='stylesheet' type='text/css'>
-        <style type="text/css">
-            html {
-                text-align: center;
-            }
-            body {
-                font-family: 'Open Sans';
-                display: inline-block;
-                width: 415px;
-            }
-            header {
-                margin-top: 20px;
-                margin-bottom: 60px;
-            }
-            header h1 {
-                font-family: 'Open Sans';
-                font-weight: 800;
-                color: rgb(35,71,170);
-                line-height: 80%;
-                font-size: 8em;
-                text-transform: uppercase;
-            }
-        </style>
+        <link href="/res/style.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <header>

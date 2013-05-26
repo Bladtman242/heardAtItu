@@ -1,6 +1,6 @@
 <?php
 error_reporting(E_ALL);
-require_once "backend/Tweet.php";
+require_once "backend/models/Tweet.php";
 require_once "vendor/twitteroauth/twitteroauth.php";
 require_once "vendor/twitteroauth/OAuth.php";
 
