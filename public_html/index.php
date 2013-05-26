@@ -2,7 +2,7 @@
 $post = array("initiated" => false);
 //POST handling
 if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
-    require_once "../backend/Tweet.php";
+    require_once "../backend/models/Tweet.php";
     
     $post['initiated'] = true;
     $post['success'] = false;

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "../backend/Tweet.php";
+require_once "../backend/models/Tweet.php";
 ?><!DOCTYPE html>
 <html>
     <head>
