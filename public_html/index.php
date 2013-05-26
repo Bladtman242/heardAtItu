@@ -11,9 +11,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
     if(strlen($_POST['tweet-content']) > 140) {
         $post['message'] = "The tweet you submitted was longer than 140 characters!";
     }
-    else if(Tweet::Enqueue($_POST['tweet-content'])) {
-        $post['success'] = true;
-        $post['message'] = "Posted tweet to system - thank you!";
+    else {
+        $tmp = Tweet::Enqueue($_POST['tweet-content']);
+        $post['success'] = $tmp['success'];
+        $post['message'] = $tmp['success'] ? "Posted tweet to system - thank you!" : $tmp['status'];
     }
 }
 ?><!DOCTYPE html>
