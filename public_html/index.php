@@ -28,9 +28,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
             }
             body {
                 font-family: 'Open Sans';
-                text-align: left;
                 display: inline-block;
-                width: 485px;
+                width: 415px;
             }
             header {
                 margin-top: 20px;
@@ -42,7 +41,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
                 color: rgb(35,71,170);
                 font-size: 8em;
                 text-transform: uppercase;
-                //width: 785px;
             }
             #content {
                 text-align: left;
