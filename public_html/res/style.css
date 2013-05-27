@@ -21,6 +21,9 @@ header h1 {
 #content {
     text-align: left;
 }
+#authorize-button {
+    margin-top: -9px;
+}
 #tweet-form {
     width: 400px;
     display: inline-block;

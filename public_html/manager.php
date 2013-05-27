@@ -1,5 +1,6 @@
 <?php
 session_start();
+$_SESSION['pwd'] = "hel";
 require_once "../backend/models/Tweet.php";
 ?><!DOCTYPE html>
 <html>
@@ -57,7 +58,7 @@ require_once "../backend/models/Tweet.php";
                 </div>
         <?php }} else { ?>
         <form method="post">
-            <input type="password" name="pwd"> <button>Authorize</button>
+            <input type="password" name="pwd" required> <button class="btn btn-primary" id="authorize-button">Authorize</button>
         </form>
         <?php } ?>
     </body>

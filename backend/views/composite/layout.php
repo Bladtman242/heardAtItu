@@ -11,5 +11,8 @@
     </head>
     <body>
         <?php echo $content; ?>
+        <footer>
+            <a href="http://atitu.dk">atITU.dk</a>
+        </footer>
     </body>
 </html>
