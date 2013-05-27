@@ -17,12 +17,26 @@ function __autoload($class) {
     include "/controllers/".$class.".php";
 }
 
-$config = json_decode(file_get_contents(Path::$BACKEND."/config.json"));
+function getEvaluatedFile($file) {
+    ob_start();
+    ob_implicit_flush(false);
+    
+    $content = "hello, world";
+    require $file;
+    
+    return ob_get_clean();
+}
 
-$controller_name = $config->defaultController."controller";
+$file = getEvaluatedFile(Path::$VIEWS."/composite/layout.php");
 
-$controller = new $controller_name;
-$controller->setUp();
-$controller->render();
+echo $file;
+
+// $config = json_decode(file_get_contents(Path::$BACKEND."/config.json"));
+
+// $controller_name = $config->defaultController."controller";
+
+// $controller = new $controller_name;
+// $controller->setUp();
+// $controller->render();
 
 ?>
