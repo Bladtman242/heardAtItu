@@ -1,7 +1,6 @@
 <?php
 
 class Tweet {
-
     public static $STATE_ANY = 'any';
     public static $STATE_PENDING = 'pending';
     public static $STATE_APPROVED = 'approved';
@@ -144,7 +143,8 @@ private static $dbconnection = false;
         
         $tweet_content = mysql_real_escape_string($tweet_content);
 
-        if (mysql_query("SELECT count(*) FROM tweets WHERE content = '$tweet_content'", $dbc) > 0) {
+	$count = mysql_fetch_assoc(mysql_query("SELECT count(*) AS c FROM tweets WHERE content = '$tweet_content'", $dbc));
+        if ($count['c'] > 0) {
             return array(
                 "success" => false,
                 "status" => "This tweet is a duplicate of a previously submitted one");
@@ -161,6 +161,5 @@ private static $dbconnection = false;
             "success" => false,
             "status" => "Unknown error. Contact moderator");
     }
-
 }
 ?>
