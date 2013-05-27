@@ -1,13 +1,15 @@
 /**
  * This is a sample config file for the project. The real config should be
  * placed as config.json and should have the correct information. The
- * information below is example-only.
+ * information below is example-only. Additionally, this comment should be
+ * removed (as it is not JSON!).
  */
 {
-    db: {
-        host: "localhost",
-        username: "heardAtItu",
-        password: "h3ard",
-        database: "heardAtItu"
-    }
+    "db": {
+        "host": "localhost",
+        "username": "heardAtItu",
+        "password": "password-lol",
+        "database": "heardAtItu"
+    },
+    "defaultController": "index"
 }

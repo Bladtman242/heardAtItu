@@ -24,7 +24,7 @@ class GeneralController {
      *      (with .php excluded).
      */
     protected function setView($view) {
-        this->$view = "../backend/views/".$view.".php";
+        this->$view = Path::$VIEWS."/".$view.".php";
     }
 
     /**
@@ -33,7 +33,7 @@ class GeneralController {
      */
     public function render() {
         $model = this->$model;
-        include(this->$view);
+        include this->$view;
     }
 
 }
