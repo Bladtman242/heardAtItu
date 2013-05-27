@@ -1,6 +1,5 @@
 <?php
 session_start();
-$_SESSION['pwd'] = "hel";
 require_once "../backend/models/Tweet.php";
 ?><!DOCTYPE html>
 <html>
