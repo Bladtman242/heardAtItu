@@ -11,5 +11,14 @@
         "password": "password-lol",
         "database": "heardAtItu"
     },
+    "twitter": {
+        "OAuth": {
+            "consumerKey": "conskey",
+            "consumerSecret": "conssec",
+            "OAuthToken": "oauhtoke",
+            "OAuthSecret": "oauthsec"
+        },
+        "password": "twitter-password"
+    }
     "defaultController": "index"
 }
