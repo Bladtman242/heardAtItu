@@ -1,19 +1,13 @@
 <?php
 
 class Tweet {
-
     public static $STATE_ANY = 'any';
     public static $STATE_PENDING = 'pending';
     public static $STATE_APPROVED = 'approved';
     public static $STATE_DENIED = 'denied';
     public static $STATE_SENT = 'sent';
-
-    private static $consumerKey = 'HezTsfwVyKtvjUmaLVzQZA';
-    private static $consumerSecret = 'FN82ceIuUcjcb6SN3kiy1HBksHg08uoA9e6DA6UpOPY';
-    private static $OAuthToken = '1448708144-LHvbDp34zZLmoMz8lknw0k7xJnrz7WoqTvUQfzz';
-    private static $OAuthSecret = 'a6F2PqBfqGe8ZN8eBp7XW0KBnTTTWKeJ6hUjVwA';
-
-    private static $dbconnection = false;
+private static $consumerKey = 'HezTsfwVyKtvjUmaLVzQZA'; private static $consumerSecret = 'FN82ceIuUcjcb6SN3kiy1HBksHg08uoA9e6DA6UpOPY'; private static $OAuthToken = '1448708144-LHvbDp34zZLmoMz8lknw0k7xJnrz7WoqTvUQfzz'; private static $OAuthSecret = 'a6F2PqBfqGe8ZN8eBp7XW0KBnTTTWKeJ6hUjVwA';
+private static $dbconnection = false;
 
     private $id;
 
@@ -149,13 +143,23 @@ class Tweet {
         
         $tweet_content = mysql_real_escape_string($tweet_content);
 
-        if(mysql_query("INSERT INTO tweets (content,state) VALUES ('$tweet_content','pending')", $dbc)) {
-            return true;
+	$count = mysql_fetch_assoc(mysql_query("SELECT count(*) AS c FROM tweets WHERE content = '$tweet_content'", $dbc));
+        if ($count['c'] > 0) {
+            return array(
+                "success" => false,
+                "status" => "This tweet is a duplicate of a previously submitted one");
         }
 
-        return false;
+        if(mysql_query("INSERT INTO tweets (content,state) VALUES ('$tweet_content','pending')", $dbc)) {
+            return array(
+                "success" => true,
+                "status" => "nothing to see here");
+        }
+
+    //catch-all
+        return array(
+            "success" => false,
+            "status" => "Unknown error. Contact moderator");
     }
-
 }
-
 ?>
