@@ -1,0 +1,13 @@
+/**
+ * This is a sample config file for the project. The real config should be
+ * placed as config.json and should have the correct information. The
+ * information below is example-only.
+ */
+{
+    db: {
+        host: "localhost",
+        username: "heardAtItu",
+        password: "h3ard",
+        database: "heardAtItu"
+    }
+}
