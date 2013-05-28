@@ -87,7 +87,7 @@ class TwitterModel extends GeneralModel {
 
         $result = $mysqli->query("SELECT * FROM tweets WHERE id = '$id'");
         if($result) {
-            $t = mysql_fetch_assoc($result);
+            $t = $result->fetch_assoc();
             if($t) {
                 return new Tweet($this,$t['id'],$t['content'],$t['state']);
             }
@@ -132,7 +132,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = TwitterModel::$STATE_APPROVED;
                 return $this->saveState($tweet);
             default:
-                throw new Exception("Cannot approve tweet if it is not currently in pending state.");
+                return false;
         }
     }
     
@@ -142,7 +142,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = TwitterModel::$STATE_DENIED;
                 return $this->saveState($tweet);
             default:
-                throw new Exception("Cannot deny tweet if it is not currently in pending state.");
+                return false;
         }
     }
     
@@ -161,7 +161,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = Tweet::$STATE_SENT;
                 return $this->saveState($tweet);
             default:
-                throw new Exception("Cannot send tweet if it is not currently in approved state.");
+                return false;
         }
     }
     
