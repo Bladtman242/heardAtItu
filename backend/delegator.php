@@ -97,6 +97,8 @@ function __autoload($class) {
         include Path::$FRAMEWORK.$file;
         return;
     }
+    
+    //TODO: As a last resort, try the vendor folder (somehow search through this).
 }
 
 $config = json_decode(file_get_contents(Path::$BACKEND."/config.json"), true);

@@ -46,7 +46,8 @@ p {
 }
 footer {
     background: rgb(235,235,235);
-    padding: 10px 14px 30px;
+    margin-top: 20px;
+    padding: 10px 14px 25px;
     text-align: center;
     border-top: 1px solid rgb(200,200,200);
 }

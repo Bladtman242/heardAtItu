@@ -15,7 +15,8 @@
             HeardAtItu BETA |
             <a href="http://twitter.com/HeardAtItu" target="_blank">@HeardAtItu</a> |
             <a href="mailto:admin@deranged.dk">Contact</a> |
-            <a href="http://atitu.dk">atITU.dk</a>
+            <a href="http://atitu.dk">atITU.dk</a> <br>
+            <a href="http://github.com/Bladtmand242/heardAtItu" target="_blank">Fork us on GitHub</a>
         </footer>
     </body>
 </html>

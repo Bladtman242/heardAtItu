@@ -38,7 +38,7 @@ class TwitterModel extends GeneralModel {
     private function stateWhereClause($state) {
         $state_where = "";
         switch($state) {
-            case Tweet::$STATE_ANY:
+            case TwitterModel::$STATE_ANY:
                 break;
             default:
                 $state_where = "WHERE state = '$state'";
@@ -124,7 +124,46 @@ class TwitterModel extends GeneralModel {
         return array(
             "success" => false,
             "status" => "Unknown error. Contact moderator.");
+    }
+    
+    public function approve($tweet) {
+        switch($tweet->state) {
+            case(TwitterModel::$STATE_PENDING):
+                $tweet->state = TwitterModel::$STATE_APPROVED;
+                return $this->saveState($tweet);
+            default:
+                throw new Exception("Cannot approve tweet if it is not currently in pending state.");
         }
+    }
+    
+    public function deny($tweet) {
+        switch($tweet->state) {
+            case(TwitterModel::$STATE_PENDING):
+                $tweet->state = TwitterModel::$STATE_DENIED;
+                return $this->saveState($tweet);
+            default:
+                throw new Exception("Cannot deny tweet if it is not currently in pending state.");
+        }
+    }
+    
+    public function send($tweet) {
+        switch($tweet->state) {
+            case(TwitterModel::$STATE_APPROVED):
+                //TODO: Make these autoloadable!
+                require_once Path::$VENDOR."/twitteroauth/twitteroauth.php";
+                require_once Path::$VENDOR."/twitteroauth/OAuth.php";
+                
+                $t = new TwitterOAuth($this->consumerKey, $this->consumerSecret, $this->OAuthToken, $this->OAuthSecret); 
+                
+                $t->post('statuses/update',
+                    array('status' => "$tweet->content"));
+                 
+                $tweet->state = Tweet::$STATE_SENT;
+                return $this->saveState($tweet);
+            default:
+                throw new Exception("Cannot send tweet if it is not currently in approved state.");
+        }
+    }
     
 }
 
