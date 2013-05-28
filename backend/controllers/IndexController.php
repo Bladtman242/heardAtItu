@@ -17,7 +17,7 @@ class IndexController extends GeneralController {
             }
             else {
                 //Load up the model
-                $model = $this->setModel("TwitterModel");
+                $model = $this->loadModel("TwitterModel");
                 
                 //Post a tweet
                 $tmp = $model->enqueue($post_args['tweet-content']);

@@ -65,7 +65,7 @@ class TwitterModel extends GeneralModel {
     public function getAll($state = 'any') {
         $mysqli = $this->getMysqli();
 
-        $state_where = Tweet::StateWhereClause($state);
+        $state_where = $this->stateWhereClause($state);
 
         $result = $mysqli->query("SELECT * FROM tweets $state_where ORDER BY id ASC");
 

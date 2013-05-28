@@ -28,7 +28,7 @@ class Path {
      * @param route The route to give to the controller.
      * @param args Any GET arguments supplied in the URL.
      */
-    public static function MakeUrl($controller, $route, $args) {
+    public static function MakeUrl($controller, $route = "", $args = null) {
         //Controlelr is required for URLs!
         if(!isset($controller)) throw new Exception("Attempted to MakeUrl without specifying a controller.");
         
@@ -59,7 +59,9 @@ class Path {
     }
     
     public static function ParseQuery($query) {
-        
+        unset($query['controller']);
+        unset($query['route']);
+        return $query;
     }
     
     public static function GetViewPath($viewName, $composite = false) {
@@ -106,7 +108,8 @@ $config = json_decode(file_get_contents(Path::$BACKEND."/config.json"), true);
 $controller_name = ucfirst(isset($_GET['controller']) ? $_GET['controller'] : $config['defaultController'])."Controller";
 
 $controller = new $controller_name($config);
-$controller->setUp(Path::ParseRoute($_GET['route']), Path::ParseQuery($_GET), $_POST);
+$controller->pre();
+$controller->setUp(Path::ParseRoute(isset($_GET['route']) ? $_GET['route'] : ""), Path::ParseQuery($_GET), $_POST);
 $controller->render();
 
 ?>

@@ -41,6 +41,9 @@ header h1 {
     margin-right: 15px;
     color: #888;
 }
+.tweet-interactions {
+    text-align: right;
+}
 p {
     text-align: left;
 }

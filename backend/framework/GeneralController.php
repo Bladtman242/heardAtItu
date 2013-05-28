@@ -6,7 +6,6 @@
  */
 class GeneralController {
 
-    private $model = null;
     private $view = null;
     private $data = array();
     protected $config = array();
@@ -16,26 +15,31 @@ class GeneralController {
     }
     
     /**
+     * Actions to be run before starting to run any actual code. Pre is run
+     * before setup.
+     */
+    public function pre() {}
+    
+    /**
      * Start the controller's handling of this data.
      */
     public function setUp($route, $get_args, $post_args) {}
 
     /**
-     * Sets the model used.
+     * Loads a model to the controller.
      * @param model Should be a class that is compatible with the view set.
      *      This model is then usable in the rest of the controller. You may
      *      pass either an instantiated object or a string with the name of
      *      the model.
      * @returns The model that was just set.
      */
-    protected function setModel($model) {
+    protected function loadModel($model) {
         if(is_object($model)) {
-            $this->model = $model;
             return $model;
         }
         else if(is_string($model)) {
-            $this->model = new $model($this->config);
-            return $this->model;
+            $model = new $model($this->config);
+            return $model;
         }
         return false;
     }
@@ -59,6 +63,15 @@ class GeneralController {
         $this->view = $view;
     }
     
+    public static function redirectToUrl($url) {
+        header("Location: ".$url);
+        exit(0);
+    }
+    
+    public static function redirect($controller, $route = "", $args = null) {
+        GeneralController::redirectToUrl(Path::MakeUrl($controller,$route,$args));
+    }
+    
     public static function renderFile($file,$content = null,$data = null) {
         extract($data);
     
@@ -75,8 +88,6 @@ class GeneralController {
      *      $model (if any was provided);
      */
     public function render() {
-        $model = $this->model;
-        
         $content = null;
         if(is_array($this->view)) {
             $views = array_reverse($this->view);
