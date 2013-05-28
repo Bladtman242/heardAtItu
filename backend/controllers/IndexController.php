@@ -18,7 +18,7 @@ class IndexController extends GeneralController {
             //Submit a tweet
             $tmp = $model->enqueue($post_args['tweet-content']);
             $post['success'] = $tmp['success'];
-            $post['message'] = $tmp['success'] ? "Posted tweet to system - thank you!" : $tmp['status'];
+            $post['message'] = $tmp['status'];
         }
         
         //Passing data to view

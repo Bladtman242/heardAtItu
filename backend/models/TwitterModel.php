@@ -122,7 +122,7 @@ class TwitterModel extends GeneralModel {
         if($mysqli->real_query("INSERT INTO tweets (content,state) VALUES ('$tweet_content','pending')")) {
             return array(
                 "success" => true,
-                "status" => "nothing to see here");
+                "status" => "Posted tweet to system - thank you!");
         }
 
         //catch-all
