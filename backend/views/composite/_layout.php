@@ -12,6 +12,9 @@
     <body>
         <?php echo $content; ?>
         <footer>
+            HeardAtItu BETA |
+            <a href="http://twitter.com/HeardAtItu" target="_blank">@HeardAtItu</a> |
+            <a href="mailto:admin@deranged.dk">Contact</a> |
             <a href="http://atitu.dk">atITU.dk</a>
         </footer>
     </body>

@@ -1,23 +1,4 @@
-<?php
-$post = array("initiated" => false);
-//POST handling
-if($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['tweet-content'])) {
-    require_once "../backend/models/Tweet.php";
-    
-    $post['initiated'] = true;
-    $post['success'] = false;
-    $post['message'] = "Failed to send tweet :(";
-    
-    if(strlen($_POST['tweet-content']) > 140) {
-        $post['message'] = "The tweet you submitted was longer than 140 characters!";
-    }
-    else {
-        $tmp = Tweet::Enqueue($_POST['tweet-content']);
-        $post['success'] = $tmp['success'];
-        $post['message'] = $tmp['success'] ? "Posted tweet to system - thank you!" : $tmp['status'];
-    }
-}
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">

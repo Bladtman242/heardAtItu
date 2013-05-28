@@ -19,6 +19,6 @@
             "OAuthSecret": "oauthsec"
         },
         "password": "twitter-password"
-    }
+    },
     "defaultController": "index"
 }
