@@ -37,6 +37,9 @@ header h1 {
 #tweet-submit {
     margin-right: -14px;
 }
+#tweet-filter {
+    text-align: center;
+}
 #characters-left {
     margin-right: 15px;
     color: #888;

@@ -49,12 +49,28 @@ class ManagerController extends GeneralController {
             }
         }
         
-        $view = TwitterModel::$STATE_PENDING;
-        // if(isset($route[0])) {
-        //  //depending on route, set different state filter.
-        // }
+        $view = "pending"; //default view
+        if(isset($route) && $route != "" && isset($route[0]) && $route[0] != "") {
+            $view = $route[0];
+        }
         
-        $this->setData(array("tweets" => $model->getAll(TwitterModel::$STATE_PENDING), "action" => $action));
+        $viewState = TwitterModel::$STATE_ANY;
+        $editTweets = false;
+        
+        switch($view) {
+            case "pending":
+                $viewState = TwitterModel::$STATE_PENDING;
+                $editTweets = true;
+                break;
+            case "denied":
+                $viewState = TwitterModel::$STATE_DENIED;
+                break;
+            case "approved":
+                $viewState = TwitterModel::$STATE_APPROVED;
+                break;
+        }
+        
+        $this->setData(array("tweets" => $model->getAll($viewState), "filter" => $view, "editTweets" => $editTweets, "action" => $action));
         $this->setView("manager");
     }
 

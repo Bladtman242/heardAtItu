@@ -13,7 +13,9 @@
         <header>
             <h1><?php echo Page::getHeader(); ?></h1>
         </header>
-        <?php echo $content; ?>
+        <div id="content">
+            <?php echo $content; ?>
+        </div>
         <footer>
             HeardAtItu BETA |
             <a href="http://twitter.com/HeardAtItu" target="_blank">@HeardAtItu</a> |

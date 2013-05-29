@@ -26,7 +26,7 @@ class Path {
      * @param args Any GET arguments supplied in the URL.
      */
     public static function MakeUrl($controller, $route = "", $args = null) {
-        //Controlelr is required for URLs!
+        //Controller is required for URLs!
         if(!isset($controller)) throw new Exception("Attempted to MakeUrl without specifying a controller.");
         
         //Decide whether a proper args array is given
@@ -39,10 +39,11 @@ class Path {
                 $route .= "/".$r;
             }
         }
-        else if(!isset($route)) {
+        else if(!isset($route) || $route == "") {
             //Return without a route
             return "/".$controller.($has_args ? "?".http_build_query($args) : "");
         }
+        else $route = "/".$route;
         
         //Return full
         return "/".$controller.$route.($has_args ? "?".http_build_query($args) : "");
