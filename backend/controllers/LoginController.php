@@ -3,6 +3,11 @@
 class LoginController extends GeneralController {
 
     public function setUp($route,$get_args,$post_args) {
+        parent::setUp($route,$get_args,$post_args);
+        
+        Page::setTitle("auth_");
+        Page::setHeader("auth_");
+        
         if($post_args != null) {
             //TODO: Proper login here.
             if($post_args['pwd'] == "trololo") {

@@ -1,6 +1,3 @@
-<header>
-    <h1>mngr</h1>
-</header>
 <?php
     if($action['initiated']) {
         if($action['success']) {

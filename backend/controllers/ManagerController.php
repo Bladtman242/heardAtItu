@@ -17,6 +17,9 @@ class ManagerController extends GeneralController {
     public function setUp($route, $get_args, $post_args) {
         parent::setUp($route, $get_args, $post_args);
         
+        Page::setTitle("mngr");
+        Page::setHeader("mngr");
+        
         $model = $this->loadModel("TwitterModel");
         
         $action = array( "initiated" => false );

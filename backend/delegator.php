@@ -56,6 +56,10 @@ class Delegator extends GeneralController {
     
     public function pre() {
         $config = $this->loadConfig();
+        
+        Page::setSiteTitle("Heard at ITU");
+        Page::setTitleSeparator(" | ");
+        
         $controller_name = ucfirst(isset($_GET['controller']) ? $_GET['controller'] : $config['defaultController'])."Controller";
         $this->controller = new $controller_name($config);
         $this->controller->pre();

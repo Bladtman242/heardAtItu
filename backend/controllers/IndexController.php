@@ -5,6 +5,8 @@ class IndexController extends GeneralController {
     public function setUp($route, $get_args, $post_args) {
         parent::setUp($route, $get_args, $post_args);
         
+        Page::setHeader("Heard at ITU");
+        
         $post = array("initiated" => false);
         //POST handling
         if($post_args != null && isset($post_args['tweet-content'])) {

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Heard at ITU</title>
+        <title><?php echo Page::getFullTitle(); ?></title>
         <link href="/vendor/bootstrap.min.css" rel="stylesheet" type="text/css">
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,800,400italic,700,700italic' rel='stylesheet' type='text/css'>
         <link href="/res/style.css" rel="stylesheet" type="text/css">
@@ -10,6 +10,9 @@
         <script src="/res/tweet.js"></script>
     </head>
     <body>
+        <header>
+            <h1><?php echo Page::getHeader(); ?></h1>
+        </header>
         <?php echo $content; ?>
         <footer>
             HeardAtItu BETA |
