@@ -1,6 +1,10 @@
-<header>
-    <h1>mngr</h1>
-</header>
+<ul class="nav nav-pills" id="tweet-filter">
+    <li class="disabled"><a>Filter tweets:</a></li>
+    <li<?php if($filter == "pending") echo ' class="active"'; ?>><a href="<?php echo Path::MakeUrl("manager","pending"); ?>">Pending</a></li>
+    <li<?php if($filter == "denied") echo ' class="active"'; ?>><a href="<?php echo Path::MakeUrl("manager","denied"); ?>">Denied</a></li>
+    <li<?php if($filter == "approved") echo ' class="active"'; ?>><a href="<?php echo Path::MakeUrl("manager","approved"); ?>">Approved+Sent</a></li>
+</ul>
+
 <?php
     if($action['initiated']) {
         if($action['success']) {
@@ -10,14 +14,5 @@
         }
     }
     
-    /** TWEETS **/
-    if(empty($tweets)) {
-        echo '<p>No pending tweets.</p>';
-    }
-    foreach($tweets as $t) {
-        echo '<div class="well well-small"><p>'.$t->content.'</p><div class="tweet-interactions">';
-        echo '<a href="'.Path::MakeUrl("manager","",array("approve" => $t->getId())).'">Approve</a> |';
-        echo ' <a href="'.Path::MakeUrl("manager","",array("deny" => $t->getId())).'">Deny</a></div>';
-        echo '</div>';
-    }
+    GeneralWidget::makeWidget("_tweetList",array("tweets" => $tweets, "tweet_state_changeable" => $editTweets));
 ?>

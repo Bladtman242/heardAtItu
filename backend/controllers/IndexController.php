@@ -5,6 +5,8 @@ class IndexController extends GeneralController {
     public function setUp($route, $get_args, $post_args) {
         parent::setUp($route, $get_args, $post_args);
         
+        Page::setHeader("Heard at ITU");
+        
         $post = array("initiated" => false);
         //POST handling
         if($post_args != null && isset($post_args['tweet-content'])) {
@@ -12,18 +14,13 @@ class IndexController extends GeneralController {
             $post['success'] = false;
             $post['message'] = "Failed to send tweet :(";
             
-            if(strlen($post_args['tweet-content']) > 140) {
-                $post['message'] = "The tweet you submitted was longer than 140 characters!";
-            }
-            else {
-                //Load up the model
-                $model = $this->loadModel("TwitterModel");
-                
-                //Post a tweet
-                $tmp = $model->enqueue($post_args['tweet-content']);
-                $post['success'] = $tmp['success'];
-                $post['message'] = $tmp['success'] ? "Posted tweet to system - thank you!" : $tmp['status'];
-            }
+            //Load up the model
+            $model = $this->loadModel("TwitterModel");
+            
+            //Submit a tweet
+            $tmp = $model->enqueue($post_args['tweet-content']);
+            $post['success'] = $tmp['success'];
+            $post['message'] = $tmp['status'];
         }
         
         //Passing data to view

@@ -1,10 +1,16 @@
 <?php
-error_reporting(E_ALL);
+require_once "backend/framework/Path.php";
+
+Path::$VENDOR = "vendor";
+
+require_once "backend/framework/GeneralModel.php";
+require_once "backend/models/TwitterModel.php";
 require_once "backend/components/Tweet.php";
 require_once "vendor/twitteroauth/twitteroauth.php";
 require_once "vendor/twitteroauth/OAuth.php";
 
-$tw = Tweet::LoadMostRecent(Tweet::$STATE_APPROVED);
+$model = new TwitterModel(json_decode(file_get_contents("backend/config.json"),true));
+$tw = $model->LoadMostRecent(TwitterModel::$STATE_APPROVED);
 if($tw != null) {
     if($tw->send()) {
         echo "Sent tweet #{$tw->getId()}:\n{$tw->content}\n";

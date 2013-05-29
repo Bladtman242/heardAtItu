@@ -108,7 +108,12 @@ class TwitterModel extends GeneralModel {
 
         $count = $mysqli->query("SELECT count(*) AS c FROM tweets WHERE content = '$tweet_content'")->fetch_assoc();
         
-        if ($count['c'] > 0) {
+        if(strlen(utf8_decode($tweet_content)) > 140) {
+            return array(
+                "success" => false,
+                "status" => "The tweet you submitted was longer than 140 characters!");
+        }
+        if($count['c'] > 0) {
             return array(
                 "success" => false,
                 "status" => "This tweet is a duplicate of a previously submitted one");
@@ -117,7 +122,7 @@ class TwitterModel extends GeneralModel {
         if($mysqli->real_query("INSERT INTO tweets (content,state) VALUES ('$tweet_content','pending')")) {
             return array(
                 "success" => true,
-                "status" => "nothing to see here");
+                "status" => "Posted tweet to system - thank you!");
         }
 
         //catch-all
@@ -158,7 +163,7 @@ class TwitterModel extends GeneralModel {
                 $t->post('statuses/update',
                     array('status' => "$tweet->content"));
                  
-                $tweet->state = Tweet::$STATE_SENT;
+                $tweet->state = TwitterModel::$STATE_SENT;
                 return $this->saveState($tweet);
             default:
                 return false;

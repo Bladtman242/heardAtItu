@@ -19,19 +19,15 @@ class Tweet {
     }
 
     public function approve() {
-        $this->twitterModel->approve($this);
+        return $this->twitterModel->approve($this);
     }
 
     public function deny() {
-        $this->twitterModel->deny($this);
+        return $this->twitterModel->deny($this);
     }
 
     public function send() {
-        $this->twitterModel->send($this);
-    }
-
-    private function saveState() {
-        $this->twitterModel->saveState($this);
+        return $this->twitterModel->send($this);
     }
 }
 ?>

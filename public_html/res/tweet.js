@@ -19,6 +19,6 @@ $(document).ready(function() {
         }
     };
 
-    $tweetText.keypress(updateCharsLeft);
+    $tweetText.keydown(updateCharsLeft);
     $tweetText.keyup(updateCharsLeft);
 });
