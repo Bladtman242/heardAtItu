@@ -163,7 +163,7 @@ class TwitterModel extends GeneralModel {
                 $t->post('statuses/update',
                     array('status' => "$tweet->content"));
                  
-                $tweet->state = Tweet::$STATE_SENT;
+                $tweet->state = TwitterModel::$STATE_SENT;
                 return $this->saveState($tweet);
             default:
                 return false;
