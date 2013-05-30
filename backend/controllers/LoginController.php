@@ -10,7 +10,7 @@ class LoginController extends GeneralController {
         
         if($post_args != null) {
             //TODO: Proper login here.
-            if($post_args['pwd'] == "trololo") {
+            if($this->loadModel('ManagerModel')->authenticate($post_args['user'], $post_args['pwd'])) {
                 session_start();
                 $_SESSION['logged_in'] = true;
                 

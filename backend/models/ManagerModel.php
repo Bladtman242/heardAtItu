@@ -5,14 +5,18 @@ class ManagerModel extends GeneralModel {
         parent::setUp();
     }
     
-    public static function authenticate($username, $passwd) {
+    public function authenticate($username, $passwd) {
         $mysqli = $this->getMysqli();
-	$res = $mysqli->query("SELECT password as p FROM managers WHERE username = $username");
+	$res = $mysqli->query("SELECT password AS p FROM managers WHERE username = '$username'");
+	$res = $res->fetch_assoc();
 	if ($res){
-	    if($res['p'] == sha256(sha256($username).passwd)){
+	    echo "lars";
+	    if($res['p'] == hash('sha256',hash('sha256',($username)).$passwd)){
+	        echo "lars2";
 		return true; 
 	    }
 	}
+	echo "larsf";
         return false;
     }
 }
