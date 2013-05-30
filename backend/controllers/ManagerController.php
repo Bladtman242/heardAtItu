@@ -66,7 +66,7 @@ class ManagerController extends GeneralController {
                 $viewState = TwitterModel::$STATE_DENIED;
                 break;
             case "approved":
-                $viewState = TwitterModel::$STATE_APPROVED;
+                $viewState = TwitterModel::$STATE_SENT;
                 break;
         }
         
