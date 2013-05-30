@@ -9,7 +9,6 @@ class LoginController extends GeneralController {
         Page::setHeader("auth_");
         
         if($post_args != null) {
-            //TODO: Proper login here.
             if($this->loadModel('ManagerModel')->authenticate($post_args['user'], $post_args['pwd'])) {
                 session_start();
                 $_SESSION['logged_in'] = true;
@@ -18,7 +17,7 @@ class LoginController extends GeneralController {
                 if(isset($get_args['goto'])) {
                     $this->redirect($get_args['goto']);
                 } else {
-                    $this->redirect($this->config['defaultController']);
+                    $this->redirect('manager');
                 }
             }
         }
