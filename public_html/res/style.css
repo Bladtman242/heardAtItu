@@ -21,8 +21,9 @@ header h1 {
 #content {
     text-align: left;
 }
-#authorize-button {
-    margin-top: -9px;
+#login-form {
+    text-align: right;
+    margin: 0 90px;
 }
 #tweet-form {
     width: 400px;
