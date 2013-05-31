@@ -67,13 +67,14 @@ class ManagerController extends GeneralController {
                 break;
             case "approved":
                 $tweets = $model->getAll(TwitterModel::$STATE_SENT);
+                $tweets = array_merge($tweets,$model->getAll(TwitterModel::$STATE_APPROVED));
                 break;
             default:
                 $tweets = $model->getAll(TwitterModel::$STATE_ANY);
                 break;
         }
         
-        $this->setData(array("tweets" => $model->getAll($viewState), "filter" => $view, "editTweets" => $editTweets, "action" => $action));
+        $this->setData(array("tweets" => $tweets, "filter" => $view, "editTweets" => $editTweets, "action" => $action));
         $this->setView("manager");
     }
 
