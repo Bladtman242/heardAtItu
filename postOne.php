@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 error_reporting(E_ALL);
 require_once "backend/Tweet.php";
