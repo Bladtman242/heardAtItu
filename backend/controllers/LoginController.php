@@ -17,7 +17,7 @@ class LoginController extends GeneralController {
                 if(isset($get_args['goto'])) {
                     $this->redirect($get_args['goto']);
                 } else {
-                    $this->redirect('manager');
+                    $this->redirect('index');
                 }
             }
         }
