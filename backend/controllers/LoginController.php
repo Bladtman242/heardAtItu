@@ -8,6 +8,8 @@ class LoginController extends GeneralController {
         Page::setTitle("auth_");
         Page::setHeader("auth_");
         
+        $auth_failed = false;
+        
         if($post_args != null) {
             if($this->loadModel('ManagerModel')->authenticate($post_args['user'], $post_args['pwd'])) {
                 session_start();
@@ -20,8 +22,13 @@ class LoginController extends GeneralController {
                     $this->redirect('index');
                 }
             }
+            else {
+                //Failed to authenticate login information
+                $auth_failed = true;
+            }
         }
     
+        $this->setData(array('auth_failed' => $auth_failed));
         $this->setView("login");
     }
 

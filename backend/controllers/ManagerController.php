@@ -54,19 +54,22 @@ class ManagerController extends GeneralController {
             $view = $route[0];
         }
         
-        $viewState = TwitterModel::$STATE_ANY;
+        $tweets = array();
         $editTweets = false;
         
         switch($view) {
             case "pending":
-                $viewState = TwitterModel::$STATE_PENDING;
+                $tweets = $model->getAll(TwitterModel::$STATE_PENDING);
                 $editTweets = true;
                 break;
             case "denied":
-                $viewState = TwitterModel::$STATE_DENIED;
+                $tweets = $model->getAll(TwitterModel::$STATE_DENIED);
                 break;
             case "approved":
-                $viewState = TwitterModel::$STATE_SENT;
+                $tweets = $model->getAll(TwitterModel::$STATE_SENT);
+                break;
+            default:
+                $tweets = $model->getAll(TwitterModel::$STATE_ANY);
                 break;
         }
         
