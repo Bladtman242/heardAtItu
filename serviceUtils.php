@@ -2,6 +2,7 @@
 <?php
 error_reporting(E_ALL);
 
+require_once "backend/framework/Path.php";
 Path::$VENDOR = "vendor";
 
 require_once "backend/framework/GeneralModel.php";
@@ -11,15 +12,15 @@ require_once "vendor/twitteroauth/twitteroauth.php";
 require_once "vendor/twitteroauth/OAuth.php";
 
 class ServiceUtils{
-    private $model="";
+    private $model;
 
     public function __construct() {
-    $model = new TwitterModel(json_decode(file_get_contents("backend/config.json"),true));
+    $this->model = new TwitterModel(json_decode(file_get_contents("backend/config.json"),true));
 
     }
 
     public function postTweet() {
-        $tw = $model->LoadMostRecent(TwitterModel::$STATE_APPROVED);
+        $tw = $this->model->LoadMostRecent(TwitterModel::$STATE_APPROVED);
         if($tw != null) {
             if($tw->send()) {
                 echo "Sent tweet #{$tw->getId()}:\n{$tw->content}\n";
@@ -30,6 +31,11 @@ class ServiceUtils{
     }
 }
 
+$opt = getopt("p");
+
 $su = new ServiceUtils();
-$su->postTweet();
+
+if (isset($opt['p'])) {
+    $su->postTweet();
+}
 ?>
