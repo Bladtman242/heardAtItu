@@ -19,12 +19,12 @@ class ServiceUtils{
     private $model;
 
     public function __construct() {
-    $this->model = new TwitterModel(json_decode(file_get_contents("backend/config.json"),true));
-
+        $this->model = new TwitterModel(json_decode(file_get_contents("backend/config.json"),true));
+        $this->model->setUp();
     }
 
     public function postTweet() {
-        $tw = $this->model->LoadMostRecent(TwitterModel::$STATE_APPROVED);
+        $tw = $this->model->loadMostRecent(TwitterModel::$STATE_APPROVED);
         if($tw != null) {
             if($tw->send()) {
                 echo "Sent tweet #{$tw->getId()}:\n{$tw->content}\n";
@@ -37,7 +37,7 @@ class ServiceUtils{
     public function mailManagers() {
         global $managers, $mailSubject, $mailBody;
 
-        $tw = $this->model->GetAll(TwitterModel::$STATE_PENDING);
+        $tw = $this->model->getAll(TwitterModel::$STATE_PENDING);
         if(is_array($tw) && count($tw)>0){
             echo mail($managers, $mailSubject, $mailBody) ? "Mail sent to managers\n" : "Mailing error\n";
         } else {
