@@ -7,7 +7,7 @@ class Tweet {
     public $content;
     public $state;
 
-    public function __construct($twitterModel,$id,$content,$state) {
+    public function __construct(TwitterModel $twitterModel,$id,$content,$state) {
         $this->twitterModel = $twitterModel;
         $this->id = $id;
         $this->content = $content;

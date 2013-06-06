@@ -12,15 +12,20 @@ class IndexController extends GeneralController {
         if($post_args != null && isset($post_args['tweet-content'])) {
             $post['initiated'] = true;
             $post['success'] = false;
-            $post['message'] = "Failed to send tweet :(";
+            $post['message'] = "Failed to send tweet for an unknown reason :(";
             
             //Load up the model
             $model = $this->loadModel("TwitterModel");
             
             //Submit a tweet
-            $tmp = $model->enqueue($post_args['tweet-content']);
-            $post['success'] = $tmp['success'];
-            $post['message'] = $tmp['status'];
+            try {
+                $post['success'] = $model->enqueue($post_args['tweet-content']);
+                $post['message'] = "Succesfully submitted tweet!";
+            }
+            catch(InputException $exc) {
+                $post['success'] = false;
+                $post['message'] = $exc->getMessage();
+            }
         }
         
         //Passing data to view

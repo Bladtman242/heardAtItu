@@ -25,27 +25,45 @@ class ManagerController extends GeneralController {
         $action = array( "initiated" => false );
         
         if(isset($get_args['deny'])) {
-            if($model->get($get_args['deny'])->deny()) {
-                $action['initiated'] = true;
-                $action['success'] = true;
-                $action['message'] = "Denied tweet - keeping the streets clean!";
+            $tweet = $model->get($get_args['deny']);
+            if($tweet != null) {
+                try {
+                    $tweet->deny();
+                    $action['initiated'] = true;
+                    $action['success'] = true;
+                    $action['message'] = "Denied tweet - keeping the streets clean!";
+                }
+                catch(InputException $exc) {
+                    $action['initiated'] = true;
+                    $action['success'] = false;
+                    $action['message'] = $exc->getMessage();
+                }
             }
             else {
                 $action['initiated'] = true;
                 $action['success'] = false;
-                $action['message'] = "Something went wrong while denying the tweet... :(";
+                $action['message'] = "No tweet exists with the selected id.";
             }
         }
         else if(isset($get_args['approve'])) {
-            if($model->get($get_args['approve'])->approve()) {
-                $action['initiated'] = true;
-                $action['success'] = true;
-                $action['message'] = "Approved tweet! It should be up in... you know... some hours or something.";
+            $tweet = $model->get($get_args['approve']);
+            if($tweet != null) {
+                try {
+                    $tweet->approve();
+                    $action['initiated'] = true;
+                    $action['success'] = true;
+                    $action['message'] = "Approved tweet! It should be up in... you know... some hours or something.";
+                }
+                catch(InputException $exc) {
+                    $action['initiated'] = true;
+                    $action['success'] = false;
+                    $action['message'] = $exc->getMessage();
+                }
             }
             else {
                 $action['initiated'] = true;
                 $action['success'] = false;
-                $action['message'] = "Something went wrong while approved the tweet... :(";
+                $action['message'] = "No tweet exists with the selected id.";
             }
         }
         

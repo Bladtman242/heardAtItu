@@ -30,12 +30,13 @@ class TwitterModel extends GeneralModel {
         }
         else $configLoadFail = true;
         
-        if($configLoadFail) throw new Exception("Attempted to create a twitter model with "+
+        if($configLoadFail) throw new GeneralException("Attempted to create a twitter model with "+
                 "an incomplete config. You MUST include the following information for Twitter "+
                 "OAuth: consumerKey, consumerSecret, OAuthToken, and OAuthSecret.");
     }
     
     private function stateWhereClause($state) {
+        //TODO: Verify that it is an allowed state
         $state_where = "";
         switch($state) {
             case TwitterModel::$STATE_ANY:
@@ -58,8 +59,9 @@ class TwitterModel extends GeneralModel {
             if($t) {
                 return new Tweet($this,$t['id'],$t['content'],$t['state']);
             }
+            return null;
         }
-        return null;
+        throw new MysqlException("Failed to load most recent tweet of state '$state'! ".$mysqli->error);
     }
 
     public function getAll($state = 'any') {
@@ -71,13 +73,13 @@ class TwitterModel extends GeneralModel {
 
         $result_array = array();
 
-         if($result) {
+        if($result) {
             while($t = $result->fetch_assoc()) {
                 $result_array[] = new Tweet($this,$t['id'],$t['content'],$t['state']);
             }
             return $result_array;
         }
-        return array();
+        throw new MysqlException("Failed to get all tweets of state '$state'! ".$mysqli->error);
     }
 
     public function get($id) {
@@ -91,14 +93,18 @@ class TwitterModel extends GeneralModel {
             if($t) {
                 return new Tweet($this,$t['id'],$t['content'],$t['state']);
             }
+            return null;
         }
-        return null;
+        throw new MysqlException("Failed to get tweet! ".$mysqli->error);
     }
     
     public function saveState($tweet) {
         $mysqli = $this->getMysqli();
         
-        return $mysqli->real_query("UPDATE tweets SET state = '{$tweet->state}' WHERE id = '{$tweet->getId()}'");
+        if($mysqli->real_query("UPDATE tweets SET state = '{$tweet->state}' WHERE id = '{$tweet->getId()}'")) {
+            return true;
+        }
+        throw new MysqlException("Failed to save state of tweet! ".$mysqli->error);
     }
     
     public function enqueue($tweet_content) {
@@ -109,26 +115,17 @@ class TwitterModel extends GeneralModel {
         $count = $mysqli->query("SELECT count(*) AS c FROM tweets WHERE content = '$tweet_content'")->fetch_assoc();
         
         if(strlen(utf8_decode($tweet_content)) > 140) {
-            return array(
-                "success" => false,
-                "status" => "The tweet you submitted was longer than 140 characters!");
+            throw new InputException("The tweet you submitted was longer than 140 characters!");
         }
         if($count['c'] > 0) {
-            return array(
-                "success" => false,
-                "status" => "This tweet is a duplicate of a previously submitted one");
+            throw new InputException("This tweet is a duplicate of a previously submitted one.");
         }
-
         if($mysqli->real_query("INSERT INTO tweets (content,state) VALUES ('$tweet_content','pending')")) {
-            return array(
-                "success" => true,
-                "status" => "Posted tweet to system - thank you!");
+            return true;
         }
-
-        //catch-all
-        return array(
-            "success" => false,
-            "status" => "Unknown error. Contact moderator.");
+        
+        //Failed to insert?
+        throw new MysqlException("Failed to add new tweet! ".$mysqli->error);
     }
     
     public function approve($tweet) {
@@ -137,7 +134,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = TwitterModel::$STATE_APPROVED;
                 return $this->saveState($tweet);
             default:
-                return false;
+                throw new InputException("Cannot approve a tweet that is not currently in pending state.");
         }
     }
     
@@ -147,7 +144,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = TwitterModel::$STATE_DENIED;
                 return $this->saveState($tweet);
             default:
-                return false;
+                throw new InputException("Cannot deny a tweet that is not currently in pending state.");
         }
     }
     
@@ -166,7 +163,7 @@ class TwitterModel extends GeneralModel {
                 $tweet->state = TwitterModel::$STATE_SENT;
                 return $this->saveState($tweet);
             default:
-                return false;
+                throw new InputException("Cannot send a tweet that is not currently in approved state.");
         }
     }
     
