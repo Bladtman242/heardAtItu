@@ -13,6 +13,7 @@ class Path {
     public static $WIDGETS = "../backend/widgets";
     public static $LAYOUT_VIEW = "../backend/views/composite/_layout.php";
     public static $VENDOR = "../vendor";
+    public static $LOGS = "../logs";
     
     /**
      * Creates an URL for a given controller and args. The controller is required,

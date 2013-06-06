@@ -42,7 +42,18 @@ function __autoload($class) {
 
 //Exception handling
 function exc_handler(Exception $exc) {
-    //TODO: Log the error somewhere?
+    //Generate log string
+    //TODO: Add date somehow
+    $log_string = "[".get_class($exc)."] ";
+    $log_string .= $exc->getCode().": ".$exc->getMessage()." on line ".$exc->getLine()." in file '".$exc->getFile()."'";
+    // while($exc->getPrevious() != null) { //TODO: PHP>5.3 only , can't test on local... Uncomment once local env updated.
+        // $exc = $exc->getPrevious();
+        // $log_string .= " CAUSED BY ".get_class($exc)." ".$exc->getCode().": ".$exc->getMessage()." on line ".$exc->getLine()." in file '".$exc-getFile()."'";
+    // }
+    $log_string .= ".\n";
+    
+    // Log the error to file
+    file_put_contents(Path::$LOGS."/framework_error.log",$log_string,FILE_APPEND);
     
     //Go to error page
     GeneralController::redirect("error","",array("exception_message" => $exc->getMessage()));
