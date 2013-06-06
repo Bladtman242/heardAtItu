@@ -93,7 +93,7 @@ class Delegator extends GeneralController {
             $this->controller = new $controller_name($config);
             $this->controller->pre();
         }
-        else if(class_exists(ErrorController)) {
+        else if(class_exists("ErrorController")) {
             $this->redirect("error","404");
         }
         else throw new Exception("Controller not found, and error controller missing!");
