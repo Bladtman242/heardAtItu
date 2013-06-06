@@ -20,6 +20,9 @@ class ErrorController extends GeneralController {
                 header("HTTP/1.1 404 Not Found");
                 break;
             case "500":
+                if(isset($get_args['exception_message'])) {
+                    $this->setData(array("msg" => "An exception was encountered, claiming: \"<em>{$get_args['exception_message']}</em>\". This has been reported."));
+                }
                 $this->setView("error/500");
                 header("HTTP/1.1 500 Internal Server Error");
                 break;

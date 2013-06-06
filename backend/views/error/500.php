@@ -1,5 +1,11 @@
 <h3>Server Error</h3>
 
+<?php
+    if(isset($msg)) {
+        echo "<div class='alert alert-error'><strong>Fault</strong> $msg</div>";
+    }
+?>
+
 <blockquote cite="Lewis Carrol">
     "Would you tell me, please, which way I ought to go from here?"<br>
     "That depends a good deal on where you want to get to."<br>

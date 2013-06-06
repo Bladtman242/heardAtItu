@@ -40,13 +40,25 @@ function __autoload($class) {
     //TODO: As a last resort, try the vendor folder (somehow search through this).
 }
 
+//Exception handling
+function exc_handler(Exception $exc) {
+    //TODO: Log the error somewhere?
+    
+    //Go to error page
+    GeneralController::redirect("error","",array("exception_message" => $exc->getMessage()));
+}
+set_exception_handler("exc_handler");
+
+//Error handling
+function err_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+    throw new PhpErrorException($errno,$errstr,$errfile,$errline,$errcontext);
+}
+set_error_handler("err_handler");
+
 /**
  * Primary class of the framework, delegating all tasks to the relevant places.
  */
 class Delegator extends GeneralController {
-
-    private $error_controller_name = "error";
-    private $error_controller_class = "ErrorController";
 
     private $controller;
 
@@ -70,8 +82,8 @@ class Delegator extends GeneralController {
             $this->controller = new $controller_name($config);
             $this->controller->pre();
         }
-        else if(class_exists($this->error_controller_class)) {
-            $this->redirect($this->error_controller_name,"404");
+        else if(class_exists(ErrorController)) {
+            $this->redirect("error","404");
         }
         else throw new Exception("Controller not found, and error controller missing!");
         

@@ -93,7 +93,11 @@ class GeneralController {
             $views = array_reverse($this->view);
             $content = $this->renderFile(Path::GetViewPath($views[0]), null, $this->data);
             for($i = 1; $i < sizeof($views); $i++) {
-                $content = $this->renderFile(Path::GetViewPath($v,true), $content, $this->data);
+                $path = Path::GetViewPath($views[$i],true);
+                if(is_file($path)) {
+                    $content = $this->renderFile($path, $content, $this->data);
+                }
+                else throw new InputException("Composite view not found: '".$views[$i]."'");
             }
         }
         else {
