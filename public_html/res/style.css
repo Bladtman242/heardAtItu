@@ -51,10 +51,16 @@ header h1 {
 p {
     text-align: left;
 }
-footer {
+footer#footer {
     background: rgb(235,235,235);
     margin-top: 20px;
     padding: 10px 14px 25px;
     text-align: center;
     border-top: 1px solid rgb(200,200,200);
+}
+footer.cite {
+    text-align: right;
+}
+footer.cite cite {
+    font-style: italic;
 }

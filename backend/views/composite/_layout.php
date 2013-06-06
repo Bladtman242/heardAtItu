@@ -16,7 +16,7 @@
         <div id="content">
             <?php echo $content; ?>
         </div>
-        <footer>
+        <footer id="footer">
             HeardAtItu |
             <a href="http://twitter.com/HeardAtItu" target="_blank">@HeardAtItu</a> |
             <a href="mailto:admin@deranged.dk">Contact</a> |

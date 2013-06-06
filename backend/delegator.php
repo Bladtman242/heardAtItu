@@ -45,6 +45,9 @@ function __autoload($class) {
  */
 class Delegator extends GeneralController {
 
+    private $error_controller_name = "error";
+    private $error_controller_class = "ErrorController";
+
     private $controller;
 
     /**
@@ -61,8 +64,17 @@ class Delegator extends GeneralController {
         Page::setTitleSeparator(" | ");
         
         $controller_name = ucfirst(isset($_GET['controller']) ? $_GET['controller'] : $config['defaultController'])."Controller";
-        $this->controller = new $controller_name($config);
-        $this->controller->pre();
+
+        //Verify existance of controller.
+        if(class_exists($controller_name)) {
+            $this->controller = new $controller_name($config);
+            $this->controller->pre();
+        }
+        else if(class_exists($this->error_controller_class)) {
+            $this->redirect($this->error_controller_name,"404");
+        }
+        else throw new Exception("Controller not found, and error controller missing!");
+        
     }
     
     /**
